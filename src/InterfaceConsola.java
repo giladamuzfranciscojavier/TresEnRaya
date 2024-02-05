@@ -47,7 +47,7 @@ public class InterfaceConsola {
                     continue;
                 }
 
-                men = juego.turnoJugador(f, c);
+                men = juego.Turno(f, c);
                 mostrarTablero(juego.getTablero());
             }
 

@@ -9,7 +9,7 @@ public class TresEnRaya {
     private static final char ccpu = 'O';
     private char dif;
 
-    /** Crea un tablero de 3x3 vacío para jugar y determina la dificultad. Una casilla vacía se representa con el caracter .
+    /** Crea un tablero de 3x3 vacío para jugar y determina la dificultad. Una casilla vacía se representa con el caracter '.'
      * @param dif la dificultad del juego. Puede ser fácil (por defecto), media (m) o difícil (d)
      */
     public TresEnRaya(char dif){
@@ -43,13 +43,13 @@ public class TresEnRaya {
     }
     
 
-    /** Se ejecuta un turno completo de jugador y máquina. Debido a que puede haber 3 resultados posibles devuelve un entero en lugar de un booleano
+    /** Se ejecuta un turno completo de jugador y máquina, respectivamente. Debido a que puede haber 5 resultados posibles devuelve un entero en lugar de un booleano
      * 
      * @param x Fila introducida por el jugador (empezando por 1)
      * @param y Columna introducida por el jugador (empezando por 1)
      * @return -1: Pierde el jugador; 0: Continúa el juego; 1: Gana el jugador; 2: Empate; 3: Movimiento ilegal
      */
-    public int turnoJugador(int x, int y){        
+    public int Turno(int x, int y){        
         int men;
         //Omite el turno del jugador si ya hay un empate
         if((men=checkTurno(tablero))!=0){
@@ -74,11 +74,12 @@ public class TresEnRaya {
     }
 
     /** Se ejecuta un turno de la máquina. El comportamiento de la misma estará determinado por la dificultad.
+     * Coexiste con el método turnoJugador ya que puede interesar ejecutar solamente ese "medio turno" (como por ejemplo si la máquina tiene el primer turno)
      * 
-     * @return Si gana la máquina devuelve -1, si el juego continúa devuelve 0, si hay empate devuelve 2
+     * @return Si gana la máquina devuelve -1, si el juego continúa devuelve 0, si ya ha ganado el jugador devuelve 1, si hay empate devuelve 2
     */
     public int turnoMaquina(){
-        //Comprueba si ya ha gana
+        //Comprueba si ya ha ganado, perdido o empatado
         if(checkLose(tablero)){
             return -1;
         }

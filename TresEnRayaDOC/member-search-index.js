@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"motor3R","c":"TresEnRaya","l":"EmpiezaJugador()"},{"p":"motor3R","c":"TresEnRaya","l":"getTablero()"},{"p":"motor3R","c":"TresEnRaya","l":"TresEnRaya(char)","u":"%3Cinit%3E(char)"},{"p":"motor3R","c":"TresEnRaya","l":"Turno(int, int)","u":"Turno(int,int)"},{"p":"motor3R","c":"TresEnRaya","l":"turnoMaquina()"}];updateSearchResults();
