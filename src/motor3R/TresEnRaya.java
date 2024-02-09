@@ -163,106 +163,10 @@ public class TresEnRaya {
 
     //Comprueba si en los alrededores de las casillas libres existen al menos 2 caracteres de la máquina (posibilidad de hacer raya). En caso de no haber se devuelve el array original
     private static int[][] calcJugadasMedio(char[][] tablero){
-        //int cont= cuantasJugadas(posibles);
         
-        //Máximas posibilidades: 5 (se necesitan mínimo 2 marcas en el tablero para tener oportunidad de raya, por lo que el jugador tendrá, como mínimo, otras 2, quedando 5 restantes)
-        int[][] posibles = new int[5][];
-        int contpos = 0;
+        int[][] posibles = calcJugadas(tablero, ccpu,cjug);
 
-
-        //Se comprueban jugadas posibles que sean compatibles
-
-        for(int i=0;i<tablero.length;i++){
-            for(int j=0;j<tablero[i].length;j++){                
-                boolean posible=false;
-                boolean hit=false;
-                //Si la casilla está libre se realiza la comprobación
-                if(tablero[i][j]=='.'){
-                    //Se comprueban filas                  
-                    for(int x=0;x<tablero.length;x++){
-                        //Si hay una marca de maquina cuenta como hit, si ya había un hit se cuenta como posible
-                        if(tablero[i][x]==ccpu){
-                            if(hit){
-                                posible=true;
-                            }
-                            else hit=true;
-                        }
-                        //Si hay una marca de jugador se anula como posible y deja de buscar
-                        else if(tablero[i][x]==cjug){
-                            posible=false;
-                            break;
-                        }
-                    }
-                    if(posible){
-                        //Si cuenta como posible se incluye en el array de posibles jugadas y se sigue buscando
-                        posibles[contpos] = new int[]{i,j};
-                        contpos++;
-                        continue;
-                    }                   
-                    //Se comprueban columnas              
-                    hit=false;
-                    for(int x=0;x<tablero.length;x++){
-                        if(tablero[x][j]==ccpu){
-                            if(hit){
-                                posible=true;
-                            }
-                            else hit=true;
-                        }
-                        else if(tablero[x][j]==cjug){
-                            posible=false;
-                            break;
-                        }
-                    }
-                    if(posible){
-                        posibles[contpos] = new int[]{i,j};
-                        contpos++;
-                        continue;
-                    }
-
-                    //Se comprueba diagonal principal
-                    hit=false;
-                    if((i==0 && j==0)||(i==1 && j==1)||(i==2 && j==2)){
-                        for(int x=0;x<tablero.length;x++){
-                            if(tablero[x][x]==ccpu){
-                                if(hit){
-                                    posible=true;
-                                }
-                                else hit=true;                                
-                            }
-                            else if(tablero[x][x]==cjug){
-                                posible=false;
-                                break;
-                            }
-                        }
-                        if(posible){
-                            posibles[contpos] = new int[]{i,j};
-                            contpos++;
-                            continue;
-                        }
-                    }
-                    hit=false;
-                    if((i==0 && j==2)||(i==1 && j==1)||(i==2 && j==0)){
-                        for(int x=0;x<tablero.length;x++){
-                            if(tablero[x][tablero.length-1-x]==ccpu){
-                                if(hit){
-                                    posible=true;
-                                }
-                                else hit=true;                                
-                            }
-                            else if(tablero[x][tablero.length-1-x]==cjug){
-                                posible=false;
-                                break;
-                            }
-                        }
-                        if(posible){
-                            posibles[contpos] = new int[]{i,j};
-                            contpos++;
-                            continue;
-                        }
-                    }
-                }
-            }
-        }
+        int contpos = cuantasJugadas(posibles);
 
         //Si no existe jugada aplicable se aplica el cálculo de dificultad fácil
         if(contpos>0) return posibles;
@@ -276,93 +180,9 @@ public class TresEnRaya {
     //Seguramente podría reutilizar ese mismo código para mayor limpieza, pero miedo me da refactorizar este mamotreto así que ahí queda
     private static int[][] calcJugadasDificil(char[][] tablero){  
 
-        int[][] posibles = new int[5][];
-        int contpos = 0;
+        int[][] posibles = calcJugadas(tablero, cjug,ccpu);
 
-        for(int i=0;i<tablero.length;i++){
-            for(int j=0;j<tablero[i].length;j++){                
-                boolean posible=false;
-                boolean hit=false;
-                if(tablero[i][j]=='.'){
-                    for(int x=0;x<tablero.length;x++){
-                        if(tablero[i][x]==cjug){
-                            if(hit){
-                                posible=true;
-                            }
-                            else hit=true;
-                        }
-                        else if(tablero[i][x]==ccpu){
-                            posible=false;
-                            break;
-                        }
-                    }
-                    if(posible){
-                        posibles[contpos] = new int[]{i,j};
-                        contpos++;
-                        continue;
-                    }                   
-                    hit=false;
-                    for(int x=0;x<tablero.length;x++){
-                        if(tablero[x][j]==cjug){
-                            if(hit){
-                                posible=true;
-                            }
-                            else hit=true;
-                        }
-                        else if(tablero[x][j]==ccpu){
-                            posible=false;
-                            break;
-                        }
-                    }
-                    if(posible){
-                        posibles[contpos] = new int[]{i,j};
-                        contpos++;
-                        continue;
-                    }
-
-                    hit=false;
-                    if((i==0 && j==0)||(i==1 && j==1)||(i==2 && j==2)){
-                        for(int x=0;x<tablero.length;x++){
-                            if(tablero[x][x]==cjug){
-                                if(hit){
-                                    posible=true;
-                                }
-                                else hit=true;                                
-                            }
-                            else if(tablero[x][x]==ccpu){
-                                posible=false;
-                                break;
-                            }
-                        }
-                        if(posible){
-                            posibles[contpos] = new int[]{i,j};
-                            contpos++;
-                            continue;
-                        }
-                    }
-                    hit=false;
-                    if((i==0 && j==2)||(i==1 && j==1)||(i==2 && j==0)){
-                        for(int x=0;x<tablero.length;x++){
-                            if(tablero[x][tablero.length-1-x]==cjug){
-                                if(hit){
-                                    posible=true;
-                                }
-                                else hit=true;                                
-                            }
-                            else if(tablero[x][tablero.length-1-x]==ccpu){
-                                posible=false;
-                                break;
-                            }                            
-                        }
-                        if(posible){
-                            posibles[contpos] = new int[]{i,j};
-                            contpos++;
-                            continue;
-                        }
-                    }
-                }
-            }
-        }
+        int contpos = cuantasJugadas(posibles);
 
         if(contpos>0){
             return posibles;
@@ -453,5 +273,110 @@ public class TresEnRaya {
             return 0;
         }
     }
+
+    //Método que realiza los cálculos de las dificultades que no son fácil. pro es el caracter que cuenta para hit (ccpu para media y cjug para difícil) y opo el contrario.
+    private static int[][] calcJugadas(char[][] tablero, char pro, char opo){  
+
+        //Máximas posibilidades: 5 (se necesitan mínimo 2 marcas en el tablero para tener oportunidad de raya, por lo que el jugador tendrá, como mínimo, otras 2, quedando 5 restantes)
+        int[][] posibles = new int[5][];
+        int contpos = 0;
+
+
+        //Se comprueban jugadas posibles que sean compatibles
+
+        for(int i=0;i<tablero.length;i++){
+            for(int j=0;j<tablero[i].length;j++){                
+                boolean posible=false;
+                boolean hit=false;
+                //Si la casilla está libre se realiza la comprobación
+                if(tablero[i][j]=='.'){
+                    //Se comprueban filas                  
+                    for(int x=0;x<tablero.length;x++){
+                        //Si hay una marca propia cuenta como hit, si ya había un hit se cuenta como posible
+                        if(tablero[i][x]==pro){
+                            if(hit){
+                                posible=true;
+                            }
+                            else hit=true;
+                        }
+                        //Si hay una marca de jugador se anula como posible y deja de buscar
+                        else if(tablero[i][x]==opo){
+                            posible=false;
+                            break;
+                        }
+                    }
+                    if(posible){
+                        //Si cuenta como posible se incluye en el array de posibles jugadas y se sigue buscando
+                        posibles[contpos] = new int[]{i,j};
+                        contpos++;
+                        continue;
+                    }                   
+                    //Se comprueban columnas              
+                    hit=false;
+                    for(int x=0;x<tablero.length;x++){
+                        if(tablero[x][j]==pro){
+                            if(hit){
+                                posible=true;
+                            }
+                            else hit=true;
+                        }
+                        else if(tablero[x][j]==opo){
+                            posible=false;
+                            break;
+                        }
+                    }
+                    if(posible){
+                        posibles[contpos] = new int[]{i,j};
+                        contpos++;
+                        continue;
+                    }
+
+                    //Se comprueba diagonal principal
+                    hit=false;
+                    if((i==0 && j==0)||(i==1 && j==1)||(i==2 && j==2)){
+                        for(int x=0;x<tablero.length;x++){
+                            if(tablero[x][x]==pro){
+                                if(hit){
+                                    posible=true;
+                                }
+                                else hit=true;                                
+                            }
+                            else if(tablero[x][x]==opo){
+                                posible=false;
+                                break;
+                            }
+                        }
+                        if(posible){
+                            posibles[contpos] = new int[]{i,j};
+                            contpos++;
+                            continue;
+                        }
+                    }
+                    hit=false;
+                    if((i==0 && j==2)||(i==1 && j==1)||(i==2 && j==0)){
+                        for(int x=0;x<tablero.length;x++){
+                            if(tablero[x][tablero.length-1-x]==pro){
+                                if(hit){
+                                    posible=true;
+                                }
+                                else hit=true;                                
+                            }
+                            else if(tablero[x][tablero.length-1-x]==opo){
+                                posible=false;
+                                break;
+                            }
+                        }
+                        if(posible){
+                            posibles[contpos] = new int[]{i,j};
+                            contpos++;
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+        return posibles;
+    }
+    
 
 }
