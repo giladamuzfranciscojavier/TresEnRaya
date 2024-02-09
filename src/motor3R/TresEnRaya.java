@@ -299,7 +299,7 @@ public class TresEnRaya {
                             }
                             else hit=true;
                         }
-                        //Si hay una marca de jugador se anula como posible y deja de buscar
+                        //Si hay una marca opuesta se anula como posible y deja de buscar
                         else if(tablero[i][x]==opo){
                             posible=false;
                             break;
@@ -352,6 +352,8 @@ public class TresEnRaya {
                             continue;
                         }
                     }
+
+                    //Se comprueba diagonal secundaria
                     hit=false;
                     if((i==0 && j==2)||(i==1 && j==1)||(i==2 && j==0)){
                         for(int x=0;x<tablero.length;x++){
