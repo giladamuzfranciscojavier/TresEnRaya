@@ -55,8 +55,7 @@ public class TresEnRaya {
         if((men=checkTurno(tablero))!=0){
             return men;
         }
-        x--;
-        y--;
+        
         if(x>3 || y>3 || x<0 || y<0 ||tablero[x][y]!='.'){
             return 3;
         }
