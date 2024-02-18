@@ -179,6 +179,11 @@ public class TresEnRaya {
     //Seguramente podría reutilizar ese mismo código para mayor limpieza, pero miedo me da refactorizar este mamotreto así que ahí queda
     private static int[][] calcJugadasDificil(char[][] tablero){  
 
+        //Si existe una jugada de dificultad media (puede hacer raya) devuelve esa misma directamente (no tiene mucho sentido que priorice taponar a ganar)
+        if(calcJugadasMedio(tablero).length!=calcJugadasFacil(tablero).length){
+            return calcJugadasMedio(tablero);
+        }
+
         int[][] posibles = calcJugadas(tablero, cjug,ccpu);
 
         int contpos = cuantasJugadas(posibles);
@@ -186,8 +191,9 @@ public class TresEnRaya {
         if(contpos>0){
             return posibles;
         }
-        //Si no existe jugada aplicable se aplica el cálculo de dificultad media
-        return calcJugadasMedio(tablero);
+        
+        //Si no existen jugadas medias o difíciles devuelve todas las posibles
+        return calcJugadasFacil(tablero);
     }
 
     //cuenta cuantas jugadas posibles hay (itera hasta que encuentra un nulo o llega al final del array)
