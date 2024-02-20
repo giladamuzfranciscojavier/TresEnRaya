@@ -175,8 +175,6 @@ public class TresEnRaya {
     }
 
     //Comprueba si el jugador tiene alguna oportunidad de raya y de ser así trata de taparla.
-    //Es básicamente el mismo código que la versión intermedia cambiando caracteres a buscar.
-    //Seguramente podría reutilizar ese mismo código para mayor limpieza, pero miedo me da refactorizar este mamotreto así que ahí queda
     private static int[][] calcJugadasDificil(char[][] tablero){  
 
         //Si existe una jugada de dificultad media (puede hacer raya) devuelve esa misma directamente (no tiene mucho sentido que priorice taponar a ganar)
